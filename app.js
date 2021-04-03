@@ -1,9 +1,10 @@
 /* eslint-disable no-console */
 const colors = require('colors');
+const ejsMate = require('ejs-mate');
 const express = require('express');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
 const path = require('path');
-const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 
 const app = express();
@@ -26,27 +27,28 @@ mongoose
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
+app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 app.get('/', (req, res) => {
-	console.log('get request to home path'.brightCyan);
+	console.log('get request to home route'.brightCyan);
 	res.render('home');
 });
 
 app.get('/campgrounds', async (req, res) => {
-	console.log('get request to index path'.brightCyan);
-	const camps = await Campground.find({});
-	res.render('campgrounds/index', { camps });
+	console.log('get request to index route'.brightCyan);
+	const campgrounds = await Campground.find({});
+	res.render('campgrounds/index', { campgrounds });
 });
 
 app.get('/campgrounds/new', (req, res) => {
-	console.log('get request to new path'.brightCyan);
+	console.log('get request to new route'.brightCyan);
 	res.render('campgrounds/new');
 });
 
 app.post('/campgrounds', async (req, res) => {
-	console.log('post request to create path'.brightCyan);
+	console.log('post request to create route'.brightCyan);
 	const camp = new Campground(req.body.campground);
 	await camp.save();
 	console.log(`${camp}`.brightMagenta);
@@ -54,13 +56,13 @@ app.post('/campgrounds', async (req, res) => {
 });
 
 app.get('/campgrounds/:id/edit', async (req, res) => {
-	console.log('get request to edit path'.brightCyan);
-	const camp = await Campground.findById(req.params.id);
-	res.render('campgrounds/edit', { camp });
+	console.log('get request to edit route'.brightCyan);
+	const campground = await Campground.findById(req.params.id);
+	res.render('campgrounds/edit', { campground });
 });
 
 app.put('/campgrounds/:id', async (req, res) => {
-	console.log('put request to update path'.brightCyan);
+	console.log('put request to update route'.brightCyan);
 	const { id } = req.params;
 	const camp = await Campground.findByIdAndUpdate(id, req.body.campground, {
 		new: true,
@@ -79,14 +81,14 @@ app.delete('/campgrounds/:id', async (req, res) => {
 });
 
 app.get('/campgrounds/:id', async (req, res) => {
-	console.log('get request to show path'.brightCyan);
+	console.log('get request to show route'.brightCyan);
 	const { id } = req.params;
-	const camp = await Campground.findById(id);
-	res.render('campgrounds/show', { camp });
+	const campground = await Campground.findById(id);
+	res.render('campgrounds/show', { campground });
 });
 
 app.get('*', (req, res) => {
-	console.log(`sorry couldn't find the path you were looking for`.yellow);
+	console.log(`sorry couldn't find the route you were looking for`.yellow);
 	res.render('home');
 });
 
