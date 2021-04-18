@@ -10,3 +10,11 @@ module.exports.campgroundSchema = Joi.object({
 		description: Joi.string().required(),
 	}).required(),
 });
+
+module.exports.reviewSchema = Joi.object({
+	// this is not related to mongoose schema it's pattern for js object used for validation
+	review: Joi.object({
+		rating: Joi.number().required().min(1).max(5), // number() not string()
+		body: Joi.string().required(),
+	}).required(),
+});

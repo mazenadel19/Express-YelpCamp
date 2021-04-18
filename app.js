@@ -1,15 +1,19 @@
 /* eslint-disable no-console */
+// eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const ejsMate = require('ejs-mate');
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const mongoose = require('mongoose');
 
+const mongoose = require('mongoose');
+const Review = require('./models/review');
 const Campground = require('./models/campground');
+
+const { campgroundSchema, reviewSchema } = require('./schemas'); // joi
+
 const catchAsync = require('./utils/catchAsync');
 const ExpressError = require('./utils/ExpressError');
-const { campgroundSchema } = require('./schemas');
 
 const app = express();
 const db = mongoose.connection;
@@ -28,6 +32,8 @@ mongoose
 		console.log(`${e}.brightYellow`);
 	});
 
+mongoose.set('useFindAndModify', false);
+
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
@@ -37,6 +43,17 @@ app.set('views', path.join(__dirname, '/views'));
 
 const validateCampground = (req, res, next) => {
 	const { error } = campgroundSchema.validate(req.body);
+
+	if (error) {
+		const msg = error.details.map((el) => el.message).join(',');
+		throw new ExpressError(msg, 400);
+	} else {
+		return next();
+	}
+};
+
+const validateReview = (req, res, next) => {
+	const { error } = reviewSchema.validate(req.body);
 
 	if (error) {
 		const msg = error.details.map((el) => el.message).join(',');
@@ -125,8 +142,38 @@ app.get(
 	catchAsync(async (req, res) => {
 		console.log('get request to show route'.brightCyan);
 		const { id } = req.params;
-		const campground = await Campground.findById(id);
+		const campground = await Campground.findById(id).populate('reviews');
 		res.render('campgrounds/show', { campground });
+	}),
+);
+
+app.post(
+	'/campgrounds/:id/reviews',
+	validateReview,
+	catchAsync(async (req, res) => {
+		const { id } = req.params;
+		const campground = await Campground.findById(id);
+		const { rating, body } = req.body.review;
+		const review = new Review({ rating, body });
+		campground.reviews.push(review);
+		await review.save();
+		await campground.save();
+		res.redirect(`/campgrounds/${id}`);
+	}),
+);
+
+app.delete(
+	'/campgrounds/:id/reviews/:reviewId',
+	catchAsync(async (req, res) => {
+		const { id, reviewId } = req.params;
+		await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+		/**
+		 *	pulling review from campground (campground.reviews) which match reviewId
+		 *	we did that cuz campground is storing a foreign key for reviews
+		 *	in mongoose deleting the  pk doesn't delete the fk
+		 */
+		await Review.findByIdAndDelete(reviewId);
+		res.redirect(`/campgrounds/${id}`);
 	}),
 );
 
@@ -134,7 +181,6 @@ app.all('*', (req, res, next) => {
 	console.log(`sorry couldn't find the route you were looking for`.yellow);
 	console.log(req.path);
 	next(new ExpressError('PAG3 N0T F0UND', 404));
-	// res.render('home');
 });
 
 app.use((err, req, res, next) => {
