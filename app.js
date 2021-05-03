@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+// /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const express = require('express');
@@ -9,10 +10,15 @@ const path = require('path');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
-const ExpressError = require('./utils/ExpressError');
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+const userRoutes = require('./routes/user');
+
+const ExpressError = require('./utils/ExpressError');
+const User = require('./models/User');
 
 const app = express();
 const db = mongoose.connection;
@@ -29,7 +35,7 @@ mongoose
 	})
 	.catch((e) => {
 		console.log('FAILED CONNECT TO MONGODB!!!'.brightYellow);
-		console.log(`${e}.brightYellow`);
+		console.log(`${e}.brightYe]llow`);
 	});
 
 app.engine('ejs', ejsMate);
@@ -52,11 +58,29 @@ const sessionConfig = {
 	},
 };
 
-// "THE SESSION MIDDLEWARE MUST COME BEFORE MY ROUTES else the session cookie wont show up in the browser terminal
+// "THE SESSION MIDDLEWARE MUST COME BEFORE MY ROUTES else the session cookie wont show up in the browser terminaluuu
 app.use(session(sessionConfig));
 app.use(flash());
 
+//! DOCS : passport.session must be used AFTER app.use(session(sessionConfig));
+
+app.use(passport.initialize());
+app.use(passport.session()); // used to have persistent login sessions else you'll have to login with every new page request
+passport.use(new LocalStrategy(User.authenticate())); // tell passport to use local strategy and the authentication for local strategy is found on a method called authenticate() in the user model
+
+passport.serializeUser(User.serializeUser()); // defines how to add user to session
+//! and what data should be added in this session! >>> found in req.user
+passport.deserializeUser(User.deserializeUser()); // defines how to remove user from session
+
+//* NB: authenticate(), serializeUser(), deserializeUser() methods are created implicitly by passport-local-mongoose when it's called/plugged-in and will be found on the user model
+
 app.use((req, res, next) => {
+	console.log(req.session);
+	if (!['/login', '/'].includes(req.originalUrl)) { // if the req.originalUrl doesn't equal / or /login
+		req.session.returnTo = req.originalUrl;
+	}
+	res.locals.currentUser = req.user; // .user is a property made by passport on the request  returns information about current authenticated user
+
 	res.locals.successMsg = req.flash('success');
 	res.locals.errorMsg = req.flash('error');
 	next();
@@ -64,6 +88,7 @@ app.use((req, res, next) => {
 
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
+app.use('/', userRoutes);
 
 app.get('/', (req, res) => {
 	console.log('get request to home route'.brightCyan);

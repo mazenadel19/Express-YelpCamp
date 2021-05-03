@@ -2,10 +2,12 @@ const express = require('express');
 
 const router = express.Router();
 
-const Campground = require('../models/campground');
+const Campground = require('../models/Campground');
 const { campgroundSchema } = require('../schemas'); // joi
 const catchAsync = require('../utils/catchAsync');
 const ExpressError = require('../utils/ExpressError');
+
+const { isLoggedIn } = require('../middleware');
 
 const validateCampground = (req, res, next) => {
 	const { error } = campgroundSchema.validate(req.body);
@@ -27,13 +29,14 @@ router.get(
 	}),
 );
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
 	console.log('get request to new route'.brightCyan);
 	res.render('campgrounds/new');
 });
 
 router.post(
 	'/',
+	isLoggedIn,
 	validateCampground,
 	catchAsync(async (req, res, next) => {
 		console.log('post request to create route'.brightCyan);
@@ -49,6 +52,7 @@ router.post(
 
 router.get(
 	'/:id/edit',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		console.log('get request to edit route'.brightCyan);
 		const campground = await Campground.findById(req.params.id);
@@ -63,6 +67,7 @@ router.get(
 
 router.put(
 	'/:id',
+	isLoggedIn,
 	validateCampground,
 	catchAsync(async (req, res) => {
 		console.log('put request to update route'.brightCyan);
@@ -83,6 +88,7 @@ router.put(
 
 router.delete(
 	'/:id',
+	isLoggedIn,
 	catchAsync(async (req, res) => {
 		console.log('delete request'.brightCyan);
 		const { id } = req.params;
@@ -103,8 +109,9 @@ router.get(
 			req.flash('error', 'Cannot Find That Campground!');
 			return res.redirect('/campgrounds');
 		}
-		res.render('campgrounds/show', { campground });
+		return res.render('campgrounds/show', { campground });
 	}),
 );
+
 
 module.exports = router;

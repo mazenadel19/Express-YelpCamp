@@ -4,8 +4,8 @@ const router = express.Router({ mergeParams: true });
 
 // { mergeParams: true } needed in order to have access to the params in the route from app file else will get a null when i try to read them
 
-const Review = require('../models/review');
-const Campground = require('../models/campground');
+const Review = require('../models/Review');
+const Campground = require('../models/Campground');
 
 const { reviewSchema } = require('../schemas'); // joi
 
