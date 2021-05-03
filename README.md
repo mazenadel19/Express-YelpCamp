@@ -9,3 +9,5 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 - `npm i nodemon` (in case you don't have it)
 - `nodemon`
 
+###### NB: app runs on port 3000 
+
