@@ -23,6 +23,8 @@ const User = require('./models/User');
 const app = express();
 const db = mongoose.connection;
 
+const PORT = process.env.PORT || 3000;
+
 mongoose
 	.connect('mongodb://localhost:27017/yelp-camp', {
 		useNewUrlParser: true,
@@ -76,7 +78,8 @@ passport.deserializeUser(User.deserializeUser()); // defines how to remove user 
 
 app.use((req, res, next) => {
 	console.log(req.session);
-	if (!['/login', '/'].includes(req.originalUrl)) { // if the req.originalUrl doesn't equal / or /login
+	if (!['/login', '/'].includes(req.originalUrl)) {
+		// if the req.originalUrl doesn't equal / or /login
 		req.session.returnTo = req.originalUrl;
 	}
 	res.locals.currentUser = req.user; // .user is a property made by passport on the request  returns information about current authenticated user
@@ -109,6 +112,6 @@ app.use((err, req, res, next) => {
 	res.status(statusCode).render('error', { err });
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
 	console.log('LISTENING ON PORT 3000'.bgGrey);
 });
