@@ -80,7 +80,7 @@ passport.deserializeUser(User.deserializeUser()); // defines how to remove user 
 app.use((req, res, next) => {
 	// console.log(req.session);
 	if (!['/login', '/register', '/'].includes(req.originalUrl)) {
-		// if the req.originalUrl doesn't equal / or /login
+		// if the req.originalUrl doesn't equal '/','/register' or ''
 		req.session.returnTo = req.originalUrl;
 	}
 	res.locals.currentUser = req.user; // .user is a property made by passport on the request  returns information about current authenticated user
