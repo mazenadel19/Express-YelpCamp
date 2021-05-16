@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-// /* eslint-disable no-unused-vars */
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const express = require('express');
@@ -7,6 +5,7 @@ const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const path = require('path');
 
+const morgan = require('morgan');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
@@ -37,13 +36,15 @@ mongoose
 	})
 	.catch((e) => {
 		console.log('FAILED CONNECT TO MONGODB!!!'.brightYellow);
-		console.log(`${e}.brightYe]llow`);
+		console.log(`${e}.brightYellow`);
+		/* eslint-disable no-console */
 	});
 
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views'));
 
+// app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, '/public')));
@@ -53,14 +54,14 @@ const sessionConfig = {
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
-		httpOnly: true, // for security against cross-site scripting
+		httpOnly: true, // for security against cross-site scripting //!change to false when testing to see the req.user value
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // setting expiry date for the cookie a week form now
 		// we set expiry date so user won't stay logged in forever once he log in once
 		maxAge: 1000 * 60 * 60 * 24 * 7,
 	},
 };
 
-// "THE SESSION MIDDLEWARE MUST COME BEFORE MY ROUTES else the session cookie wont show up in the browser terminaluuu
+// "THE SESSION MIDDLEWARE MUST COME BEFORE MY ROUTES else the session cookie wont show up in the browser terminal
 app.use(session(sessionConfig));
 app.use(flash());
 
@@ -77,8 +78,8 @@ passport.deserializeUser(User.deserializeUser()); // defines how to remove user 
 //* NB: authenticate(), serializeUser(), deserializeUser() methods are created implicitly by passport-local-mongoose when it's called/plugged-in and will be found on the user model
 
 app.use((req, res, next) => {
-	console.log(req.session);
-	if (!['/login', '/'].includes(req.originalUrl)) {
+	// console.log(req.session);
+	if (!['/login', '/register', '/'].includes(req.originalUrl)) {
 		// if the req.originalUrl doesn't equal / or /login
 		req.session.returnTo = req.originalUrl;
 	}
@@ -94,7 +95,6 @@ app.use('/campgrounds/:id/reviews', reviewRoutes);
 app.use('/', userRoutes);
 
 app.get('/', (req, res) => {
-	console.log('get request to home route'.brightCyan);
 	res.render('home');
 });
 

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 const colors = require('colors');
 const mongoose = require('mongoose');
-const Campground = require('../models/campground');
+const Campground = require('../models/Campground');
 const cities = require('./cities');
 const { descriptors, places } = require('./seedHelper');
 
@@ -34,6 +34,7 @@ const seedDB = async () => {
 
 		const camp = new Campground({
 			campNo: `#${i}`,
+			author:'609cb8ba60aa6df217ad82a4',
 			image: 'https://source.unsplash.com/collection/483251',
 			location: `${cities[rand1000].city}, ${cities[rand1000].state}`,
 			title: `${sample(descriptors)} ${sample(places)}`,

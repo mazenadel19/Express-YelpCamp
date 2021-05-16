@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const Review = require('./Review');
 
@@ -12,6 +11,10 @@ const campgroundSchema = new Schema({
 	location: String,
 	price: Number,
 	title: String,
+	author: {
+		type: Schema.Types.ObjectId,
+		ref: 'User',
+	},
 	reviews: [
 		{
 			type: Schema.Types.ObjectId,

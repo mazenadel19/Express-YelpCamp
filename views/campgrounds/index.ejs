@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate') %>
+<link rel="stylesheet" href="/css/styles.css" />
 <div class="pb-5">
 	<h1 class="pb-2 border-bottom mb-5">ALL Camps</h1>
 
@@ -7,11 +8,27 @@
 
 		<div class="col">
 			<div
-				class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
-				style="background-image: url('<%=campground.image%>')"
+				class="
+					card card-cover
+					h-100
+					overflow-hidden
+					text-white
+					bg-dark
+					rounded-5
+					shadow-lg
+				"
 			>
 				<div
-					class="card h-100 card-cover overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+					class="
+						card
+						h-100
+						card-cover
+						overflow-hidden
+						text-white
+						bg-dark
+						rounded-5
+						shadow-lg
+					"
 					style="background-image: url('<%=campground.image%>')"
 				>
 					<div
@@ -23,51 +40,61 @@
 							style="text-decoration-color: dodgerblue"
 						>
 							<h2
-								class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold"
+								class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
 								style="font-size: 3rem; text-decoration-color: dodgerblue"
 							>
 								<%= campground.title %>
 							</h2>
 						</a>
 
-						<ul class="d-flex list-unstyled mt-auto">
-							<li class="me-auto">
+						<ul
+							class="
+								d-flex
+								flex-wrap
+								list-unstyled
+								mt-auto
+								align-items-baseline
+							"
+						>
+							<li
+								class="me-auto d-flex justify-content-start align-items-center"
+							>
 								<!-- todo user image + username -->
 								<img
 									src="<%=campground.image%>"
-									alt="campImage"
 									width="32"
 									height="32"
 									class="rounded-circle border border-white"
 								/>
+								<span class="ms-2 card-text-shadow"
+									><%=campground.author.username%></span
+								>
 							</li>
-							<li class="d-flex align-items-center me-3">
-								<img
-									style="
-										filter: invert(100%) sepia(4%) saturate(16%)
-											hue-rotate(29deg) brightness(103%) contrast(105%);
-									"
-									class="bi me-2"
-									width="20em"
-									height="25em"
-									src="/icons/pinpoint.svg"
-									alt=""
-								/>
-								<small><%= campground.location%></small>
-							</li>
-							<li class="d-flex align-items-center">
-								<img
-									style="
-										filter: invert(100%) sepia(4%) saturate(16%)
-											hue-rotate(29deg) brightness(103%) contrast(105%);
-									"
-									class="bi me-2"
-									width="20em"
-									height="25em"
-									src="/icons/calendar.svg"
-									alt=""
-								/>
-								<small>3d</small>
+							<li class="ms-auto">
+								<ul class="d-flex">
+									<li class="d-flex align-items-center me-3">
+										<img
+											class="bi me-2"
+											width="20em"
+											height="25em"
+											src="/icons/pinpoint.svg"
+											alt=""
+										/>
+										<small class="card-text-shadow"
+											><%= campground.location%></small
+										> 
+									</li>
+									<li class="d-flex align-items-center">
+										<img
+											class="bi me-2"
+											width="20em"
+											height="25em"
+											src="/icons/calendar.svg"
+											alt=""
+										/>
+										<small class="card-text-shadow">3d</small>
+									</li>
+								</ul>
 							</li>
 						</ul>
 					</div>

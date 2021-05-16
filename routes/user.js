@@ -53,7 +53,7 @@ router.post(
 	(req, res) => {
 		req.flash('success', 'Welcome back!');
 		const redirectUrl = req.session.returnTo || '/campgrounds';
-		delete req.session.returnTo // cuz we don't want returnTo to stay in our session data (ian thinks the same as i do  .. it's useless as i'm creating a return to on req.session with every request)
+		delete req.session.returnTo; // cuz we don't want returnTo to stay in our session data (ian thinks the same as i do  .. it's useless as i'm creating a return to on req.session with every request)
 		res.redirect(redirectUrl);
 		// Passport.authenticate defines my authentication strategy, local is for forms i made myself but u can also use google or facebook or github ... etc for other ways of authentication
 
