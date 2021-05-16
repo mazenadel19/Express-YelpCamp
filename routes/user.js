@@ -6,20 +6,21 @@ const user = require('../controllers/users');
 
 const router = express.Router();
 
-router.get('/register', user.renderRegister);
+router
+	.route('/register')
+	.get(user.renderRegister)
+	.post(catchAsync(user.register));
 
-router.post('/register', catchAsync(user.register));
-
-router.get('/login', user.renderLogin);
-
-router.post(
-	'/login',
-	Passport.authenticate('local', {
-		failureFlash: true,
-		failureRedirect: '/login',
-	}),
-	user.login,
-);
+router
+	.route('/login')
+	.get(user.renderLogin)
+	.post(
+		Passport.authenticate('local', {
+			failureFlash: true,
+			failureRedirect: '/login',
+		}),
+		user.login,
+	);
 
 router.get('/logout', user.logout);
 

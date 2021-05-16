@@ -31,3 +31,4 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 12. passport
 13. passport-local
 14. passport-local-mongoose
+15. starability
