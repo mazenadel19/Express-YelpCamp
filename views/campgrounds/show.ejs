@@ -6,7 +6,41 @@
 		<!-- card -->
 
 		<div class="card mb-3">
-			<img src="<%= campground.image%>" class="card-img-top" alt="..." />
+			<!-- carousel -->
+			<div
+				id="carouselCarousel"
+				class="carousel slide"
+				data-bs-ride="carousel"
+			>
+				<div class="carousel-inner">
+					<% campground.images.forEach((img, i) => { %>
+					<div class="carousel-item <%= i === 0 ? 'active' : ''%>">
+						<img src="<%= img.url%>" class="d-block w-100" alt="" />
+					</div>
+					<% }) %>
+				</div>
+				<% if (campground.images.length>1) { %>
+				<button
+					class="carousel-control-prev"
+					type="button"
+					data-bs-target="#carouselCarousel"
+					data-bs-slide="prev"
+				>
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button
+					class="carousel-control-next"
+					type="button"
+					data-bs-target="#carouselCarousel"
+					data-bs-slide="next"
+				>
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+				<% } %>
+			</div>
+			<!-- carousel -->
 			<div class="card-body">
 				<h5 class="card-title"><%= campground.title%></h5>
 				<p class="card-text"><%= campground.description%></p>
@@ -60,6 +94,7 @@
 					class="input-no-rate"
 					name="review[rating]"
 					value="0"
+					checked
 					aria-label="No rating."
 				/> -->
 				<input

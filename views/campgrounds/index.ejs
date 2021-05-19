@@ -29,7 +29,7 @@
 						rounded-5
 						shadow-lg
 					"
-					style="background-image: url('<%=campground.image%>')"
+					style="background-image: url('<%=campground.images[0].url%>')"
 				>
 					<div
 						class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1"
@@ -59,14 +59,13 @@
 							<li
 								class="me-auto d-flex justify-content-start align-items-center"
 							>
-								<!-- todo user image + username -->
 								<img
-									src="<%=campground.image%>"
+									src="/icons/user.svg"
 									width="32"
 									height="32"
-									class="rounded-circle border border-white"
+									class="rounded-circle border border-white bg-light"
 								/>
-								<span class="ms-2 card-text-shadow"
+								<span class="ms-2 card-text-shadow fw-bold"
 									><%=campground.author.username%></span
 								>
 							</li>
@@ -80,9 +79,9 @@
 											src="/icons/pinpoint.svg"
 											alt=""
 										/>
-										<small class="card-text-shadow"
+										<small class="card-text-shadow fw-bold"
 											><%= campground.location%></small
-										> 
+										>
 									</li>
 									<li class="d-flex align-items-center">
 										<img
@@ -92,7 +91,7 @@
 											src="/icons/calendar.svg"
 											alt=""
 										/>
-										<small class="card-text-shadow">3d</small>
+										<small class="card-text-shadow fw-bold">3d</small>
 									</li>
 								</ul>
 							</li>
