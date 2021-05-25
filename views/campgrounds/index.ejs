@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
-<link rel="stylesheet" href="/css/styles.css" />
-<div id="map" style="width: 100%; height: 500px"></div>
+
+<div id="cluster-map"></div>
 <div class="pb-5">
 	<h1 class="pb-2 border-bottom mb-5">ALL Camps</h1>
 
@@ -56,14 +56,13 @@
 							<a
 								href="/campgrounds/<%=campground._id%>"
 								class="text-light"
-								style="text-decoration-color: dodgerblue"
+								id="card-title-decoration"
 							>
-								<h2
-									class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
-									style="font-size: 3rem; text-decoration-color: dodgerblue"
+								<p
+									class="pt-5 mt-5 mb-4 display-4 lh-1 fw-bold card-text-shadow"
 								>
 									<%= campground.title %>
-								</h2>
+								</p>
 							</a>
 
 							<ul

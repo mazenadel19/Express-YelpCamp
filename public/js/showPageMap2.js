@@ -6,6 +6,9 @@ const map = new mapboxgl.Map({
 	zoom: 10, // starting zoom
 });
 
+// adds zoom and rotation controls to the map
+map.addControl(new mapboxgl.NavigationControl());
+
 const size = 100;
 
 // implementation of CustomLayerInterface to draw a pulsing dot icon on the map

@@ -7,5 +7,19 @@
 } */
 
 .card-text-shadow {
-	text-shadow: -2px 2px 5px black, 2px -2px 5px black
+	text-shadow: -2px 2px 5px black, 2px -2px 5px black;
+}
+
+#cluster-map {
+	width: 100%;
+	height: 500px;
+}
+
+#map {
+	width: 100%;
+	height: 300px;
+}
+
+#card-title-decoration {
+	text-decoration-color: dodgerblue;
 }
