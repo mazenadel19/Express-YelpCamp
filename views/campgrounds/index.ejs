@@ -18,6 +18,7 @@
 					shadow-lg
 				"
 			>
+				<% if (campground.images.length) { %>
 				<div
 					class="
 						card
@@ -31,75 +32,98 @@
 					"
 					style="background-image: url('<%=campground.images[0].url%>')"
 				>
+					<% } else{ %>
 					<div
-						class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1"
+						class="
+							card
+							h-100
+							card-cover
+							overflow-hidden
+							text-white
+							bg-dark
+							rounded-5
+							shadow-lg
+						"
+						style="
+							background-image: url('https://res.cloudinary.com/skywa1ker/image/upload/v1621939744/YelpCamp/ehvtazwtd9jyjha5nrrs.jpg');
+						"
 					>
-						<a
-							href="/campgrounds/<%=campground._id%>"
-							class="text-light"
-							style="text-decoration-color: dodgerblue"
+						<% } %>
+						<div
+							class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1"
 						>
-							<h2
-								class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
-								style="font-size: 3rem; text-decoration-color: dodgerblue"
+							<a
+								href="/campgrounds/<%=campground._id%>"
+								class="text-light"
+								style="text-decoration-color: dodgerblue"
 							>
-								<%= campground.title %>
-							</h2>
-						</a>
-
-						<ul
-							class="
-								d-flex
-								flex-wrap
-								list-unstyled
-								mt-auto
-								align-items-baseline
-							"
-						>
-							<li
-								class="me-auto d-flex justify-content-start align-items-center"
-							>
-								<img
-									src="/icons/user.svg"
-									width="32"
-									height="32"
-									class="rounded-circle border border-white bg-light"
-								/>
-								<span class="ms-2 card-text-shadow fw-bold"
-									><%=campground.author.username%></span
+								<h2
+									class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
+									style="font-size: 3rem; text-decoration-color: dodgerblue"
 								>
-							</li>
-							<li class="ms-auto">
-								<ul class="d-flex">
-									<li class="d-flex align-items-center me-3">
-										<img
-											class="bi me-2"
-											width="20em"
-											height="25em"
-											src="/icons/pinpoint.svg"
-											alt=""
-										/>
-										<small class="card-text-shadow fw-bold"
-											><%= campground.location%></small
-										>
-									</li>
-									<li class="d-flex align-items-center">
-										<img
-											class="bi me-2"
-											width="20em"
-											height="25em"
-											src="/icons/calendar.svg"
-											alt=""
-										/>
-										<small class="card-text-shadow fw-bold">3d</small>
-									</li>
-								</ul>
-							</li>
-						</ul>
+									<%= campground.title %>
+								</h2>
+							</a>
+
+							<ul
+								class="
+									d-flex
+									flex-wrap
+									list-unstyled
+									mt-auto
+									align-items-baseline
+								"
+							>
+								<li
+									class="
+										me-auto
+										d-flex
+										justify-content-start
+										align-items-center
+									"
+								>
+									<img
+										src="/icons/user.svg"
+										width="32"
+										height="32"
+										class="rounded-circle border border-white bg-light"
+									/>
+									<span class="ms-2 card-text-shadow fw-bold">
+										<%=campground.author.username%>
+									</span>
+								</li>
+								<li class="ms-auto">
+									<ul class="d-flex">
+										<li class="d-flex align-items-center me-3">
+											<img
+												class="bi me-2"
+												width="20em"
+												height="25em"
+												src="/icons/pinpoint.svg"
+												alt=""
+											/>
+											<small class="card-text-shadow fw-bold">
+												<%= campground.location%>
+											</small>
+										</li>
+										<li class="d-flex align-items-center">
+											<img
+												class="bi me-2"
+												width="20em"
+												height="25em"
+												src="/icons/calendar.svg"
+												alt=""
+											/>
+											<small class="card-text-shadow fw-bold">3d</small>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
+			<% } %>
 		</div>
-		<% } %>
 	</div>
 </div>
