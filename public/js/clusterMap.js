@@ -39,10 +39,10 @@ map.on('load', () => {
 				'#f38181',
 				10,
 				'#d69',
-				50,
+				30,
 				'#b83b5e',
 			],
-			'circle-radius': ['step', ['get', 'point_count'], 15, 10, 25, 50, 35],
+			'circle-radius': ['step', ['get', 'point_count'], 15, 10, 25, 30, 35],
 		},
 	});
 

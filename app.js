@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'production') {
 	require('dotenv').config();
 }
 
-
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors');
 const express = require('express');
@@ -16,6 +15,8 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
+const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
 
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
@@ -39,7 +40,7 @@ mongoose
 	.then(() => {
 		console.log('CONNECTED TO MONGODB!!!'.bgGrey);
 	})
-	.catch((e) => {
+	.catch(e => {
 		console.log('FAILED CONNECT TO MONGODB!!!'.brightYellow);
 		console.log(`${e}.brightYellow`);
 		/* eslint-disable no-console */
@@ -53,13 +54,61 @@ app.set('views', path.join(__dirname, '/views'));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, '/public')));
+app.use(mongoSanitize({ replaceWith: '_' })); // searches for any keys in objects that begin with a "$" sign or contain a ".", from req.body, req.query or req.params and replace them with "_" to protect against mongo injection!
 
+app.use(helmet()); // add more security by setting various HTTP headers
+const scriptSrcUrls = [
+	'https://stackpath.bootstrapcdn.com/',
+	'https://api.tiles.mapbox.com/',
+	'https://api.mapbox.com/',
+	'https://kit.fontawesome.com/',
+	'https://cdnjs.cloudflare.com/',
+	'https://cdn.jsdelivr.net',
+];
+const styleSrcUrls = [
+	'https://kit-free.fontawesome.com/',
+	'https://stackpath.bootstrapcdn.com/',
+	'https://api.mapbox.com/',
+	'https://api.tiles.mapbox.com/',
+	'https://fonts.googleapis.com/',
+	'https://use.fontawesome.com/',
+	'https://cdn.jsdelivr.net/',
+];
+const connectSrcUrls = [
+	'https://api.mapbox.com/',
+	'https://a.tiles.mapbox.com/',
+	'https://b.tiles.mapbox.com/',
+	'https://events.mapbox.com/',
+];
+const fontSrcUrls = [];
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			defaultSrc: [],
+			connectSrc: ["'self'", ...connectSrcUrls],
+			scriptSrc: ["'unsafe-inline'", "'self'", ...scriptSrcUrls],
+			styleSrc: ["'self'", "'unsafe-inline'", ...styleSrcUrls],
+			workerSrc: ["'self'", 'blob:'],
+			objectSrc: [],
+			imgSrc: [
+				"'self'",
+				'blob:',
+				'data:',
+				'https://res.cloudinary.com/skywa1ker/',
+				'https://images.unsplash.com/',
+			],
+			fontSrc: ["'self'", ...fontSrcUrls],
+		},
+	}),
+);
 const sessionConfig = {
+	name: 'session', // to change the name of my session cookie from connect.sid to session (in case someone wrote some script to get data from connect.sid since it's default name for session and now he might have access on other users data and use it pretending to be them)
 	secret: 'thisshouldbeabettersecret',
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
-		httpOnly: true, // for security against cross-site scripting //!change to false when testing to see the req.user value
+		httpOnly: true, // for security against cross-site scripting //!change to false when testing to console log the req.user value
+		// secure:true, // to make our session cookie only accessible over https
 		expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // setting expiry date for the cookie a week form now
 		// we set expiry date so user won't stay logged in forever once he log in once
 		maxAge: 1000 * 60 * 60 * 24 * 7,

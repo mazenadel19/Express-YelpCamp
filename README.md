@@ -24,7 +24,9 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 - ejs
 - ejs-mate
 - express
+- express mongo sanitize
 - express-session
+- helmet
 - joi
 - mapbox
 - morgan
