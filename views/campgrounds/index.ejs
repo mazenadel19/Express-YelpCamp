@@ -7,7 +7,7 @@
 	<div class="row row-cols-1 row-cols-md-2 g-4">
 		<% for( let campground of campgrounds) { %>
 
-		<div class="col">
+		<div class="col" style="height: 320px">
 			<div
 				class="
 					card card-cover
@@ -30,6 +30,7 @@
 						bg-dark
 						rounded-5
 						shadow-lg
+						center-card-img
 					"
 					style="background-image: url('<%=campground.images[0].url%>')"
 				>
@@ -44,6 +45,7 @@
 							bg-dark
 							rounded-5
 							shadow-lg
+							center-card-img
 						"
 						style="
 							background-image: url('https://res.cloudinary.com/skywa1ker/image/upload/v1621939744/YelpCamp/ehvtazwtd9jyjha5nrrs.jpg');
@@ -59,7 +61,7 @@
 								id="card-title-decoration"
 							>
 								<p
-									class="pt-5 mt-5 mb-4 display-4 lh-1 fw-bold card-text-shadow"
+									class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
 								>
 									<%= campground.title %>
 								</p>
@@ -106,7 +108,7 @@
 												<%= campground.location%>
 											</small>
 										</li>
-										<li class="d-flex align-items-center">
+										<!-- <li class="d-flex align-items-center">
 											<img
 												class="bi me-2"
 												width="20em"
@@ -115,7 +117,7 @@
 												alt=""
 											/>
 											<small class="card-text-shadow fw-bold">3d</small>
-										</li>
+										</li> -->
 									</ul>
 								</li>
 							</ul>

@@ -17,23 +17,22 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 
 ## 🧰 Tools I've used
 
-* cloudinary
-* colors
-* connect-flash
-* dotenv
-* ejs
-* ejs-mate
-* express
-* express-session
-* flash
-* joi
-* mapbox
-* morgan
-* method-override
-* mongoose
-* multer
-* multer-storage-cloudinary
-* passport
-* passport-local
-* passport-local-mongoose
-* starability
+- cloudinary
+- colors
+- connect-flash
+- dotenv
+- ejs
+- ejs-mate
+- express
+- express-session
+- joi
+- mapbox
+- morgan
+- method-override
+- mongoose
+- multer
+- multer-storage-cloudinary
+- passport
+- passport-local
+- passport-local-mongoose
+- starability
