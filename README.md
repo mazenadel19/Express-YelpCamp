@@ -6,12 +6,14 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 
 1. [Install node](https://nodejs.org/en/) (in case you don't have it)
 2. open terminal and run `git clone https://github.com/mazenadel19/YelpCamp.git`
-3. cd YelpCamp
-4. `npm i`
-5. `npm install -g nodemon` (in case you don't have it)
-6. `nodemon`
-
-###### NB: app runs on port 3000
+3. `npm install -g nodemon` (in case you don't have it)
+4. cd YelpCamp
+5. `npm i`
+6. cd seeds
+7. node `index.js`
+8. cd ..
+9. `nodemon`
+10. open `localhost:3000` in your browser
 
 <br/>
 
