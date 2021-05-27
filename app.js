@@ -31,6 +31,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// const DB_URL = 'mongodb://localhost:27017/yelp-camp';
 mongoose
 	.connect(DB_URL, {
 		useNewUrlParser: true,
@@ -39,6 +40,7 @@ mongoose
 		useFindAndModify: false,
 	})
 	.then(() => {
+		console.log('app', DB_URL);
 		console.log('CONNECTED TO MONGODB!!!'.bgGrey);
 	})
 	.catch(e => {

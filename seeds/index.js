@@ -5,6 +5,7 @@ const cities = require('./cities');
 const { descriptors, places } = require('./seedHelper');
 
 const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// const DB_URL = ''
 // atlas seeds using the url instead of DB_URL since process.env.DB_URL is undefined on my local machine
 // console.log(DB_URL);
 
@@ -30,14 +31,14 @@ function sample(arr) {
 
 const seedDB = async () => {
 	await Campground.deleteMany({});
-	for (let i = 1; i <= 300; i++) {
-		const rand1000 = Math.floor(Math.random() * 1000);
+	for (let i = 1; i <= 500; i++) {
+		const rand1000 = Math.floor(Math.random() * 1035);
 		const price = Math.floor(Math.random() * 20) + 10;
 
 		const camp = new Campground({
 			campNo: `#${i}`,
-			author: '609cb8ba60aa6df217ad82a4', // local
-			// author: '60ae8cd334192b7565a69fef', // atlas
+			// author: '609cb8ba60aa6df217ad82a4', // local
+			author: '60ae8cd334192b7565a69fef', // atlas
 			images: [
 				{
 					url: 'https://res.cloudinary.com/skywa1ker/image/upload/w_570/v1621939821/YelpCamp/wk4ybn0w0vvqnyn72qrb.jpg',
