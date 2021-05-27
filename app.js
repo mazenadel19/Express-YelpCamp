@@ -170,5 +170,5 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-	console.log('LISTENING ON PORT 3000'.bgGrey);
+	console.log(`LISTENING ON PORT ${PORT}`.bgGrey);
 });
