@@ -20,6 +20,7 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 - cloudinary
 - colors
 - connect-flash
+- connect-mongo
 - dotenv
 - ejs
 - ejs-mate

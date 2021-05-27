@@ -23,16 +23,14 @@ module.exports.createCampground = async (req, res, next) => {
 		})
 		.send();
 	const campground = new Campground(req.body.campground);
-	campground.geometry = geoData.body.features[0].geometry; // returns geojson .. this is how it looks => { type: 'Point', coordinates: [ 31.23944, 30.05611 ] }
+	campground.geometry = geoData.body.features[0].geometry;
 
 	campground.images = req.files.map(f => ({
-		// req.files is added by multer
 		url: f.path,
 		filename: f.filename,
 	}));
 	campground.author = req.user._id;
 	await campground.save();
-	console.log(campground);
 	req.flash('success', 'Successfully Created Campground!');
 	res.redirect(`/campgrounds/${campground.id}`);
 };
@@ -46,7 +44,6 @@ module.exports.showCampground = async (req, res) => {
 		req.flash('error', 'Cannot Find That Campground!');
 		return res.redirect('/campgrounds');
 	}
-	// console.log(campground);
 	return res.render('campgrounds/show', { campground });
 };
 
@@ -62,7 +59,6 @@ module.exports.renderEditForm = async (req, res) => {
 
 module.exports.updateCampground = async (req, res) => {
 	const { id } = req.params;
-	// console.log(req.body);
 	const campground = await Campground.findByIdAndUpdate(
 		id,
 		{ ...req.body.campground },
@@ -72,13 +68,11 @@ module.exports.updateCampground = async (req, res) => {
 		},
 	);
 	const imgs = req.files.map(f => ({
-		// req.files is added by multer
 		url: f.path,
 		filename: f.filename,
 	}));
 	campground.images.push(...imgs);
 	await campground.save();
-	// console.log(campground);
 
 	if (req.body.deleteImages) {
 		for (let filename of req.body.deleteImages) {
@@ -87,7 +81,6 @@ module.exports.updateCampground = async (req, res) => {
 		await campground.updateOne({
 			$pull: { images: { filename: { $in: req.body.deleteImages } } },
 		});
-		console.log(campground);
 	}
 
 	req.flash('success', 'Successfully Updated Campground!');
@@ -97,7 +90,6 @@ module.exports.updateCampground = async (req, res) => {
 module.exports.deleteCampground = async (req, res) => {
 	const { id } = req.params;
 	const camp = await Campground.findByIdAndDelete(id);
-	// console.log(camp, 'was deleted successfully'.blue);
 	req.flash('success', 'Successfully Deleted Campground!');
 	res.redirect(`/campgrounds`);
 };

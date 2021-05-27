@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const colors = require('colors');
 const mongoose = require('mongoose');
 const Campground = require('../models/Campground');
@@ -34,7 +33,6 @@ const seedDB = async () => {
 
 		const camp = new Campground({
 			campNo: `#${i}`,
-			// your user ID ... DONT TOUCH IT!!
 			author: '609cb8ba60aa6df217ad82a4',
 			images: [
 				{

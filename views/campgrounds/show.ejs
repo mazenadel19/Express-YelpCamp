@@ -16,7 +16,6 @@
 							style="background-image: url('<%= img.url%>'); height: 300px"
 							class="d-block w-100 center-card-img"
 						></div>
-						<!-- <img src="<%# img.url%>" class="d-block w-100" alt="" /> -->
 					</div>
 					<% }) %> <% }else{ %>
 					<div>
@@ -60,9 +59,7 @@
 				<li class="list-group-item">
 					Submitted by <%= campground.author.username%>
 				</li>
-				<!-- <li class="list-group-item ">$<%# campground.price%>/night</li> -->
 			</ul>
-			<!-- show buttons only if it is the user who created the campground -->
 			<% if (currentUser && campground.author._id.equals(currentUser._id)) { %>
 			<div class="card-body">
 				<a
@@ -79,7 +76,6 @@
 				</form>
 			</div>
 			<% } %>
-			<!-- <div class="card-footer text-muted">3 days ago</div> -->
 			<div class="card-footer text-muted">$<%= campground.price%>/night</div>
 		</div>
 	</div>
@@ -100,15 +96,7 @@
 		>
 			<fieldset class="starability-grow mb-3">
 				<legend>Rating:</legend>
-				<!-- <input
-					type="radio"
-					id="no-rate"
-					class="input-no-rate"
-					name="review[rating]"
-					value="0"
-					checked
-					aria-label="No rating."
-				/> -->
+
 				<input
 					type="radio"
 					id="first-rate1"
@@ -150,9 +138,6 @@
 					Rated:<%= review.rating %> starts
 				</p>
 
-				<!-- <p class="card-subtitle mb-2 text-muted">
-					By <%= review.author.username %>
-				</p> -->
 				<p class="card-text">Review: <%= review.body %></p>
 				<% if (currentUser && review.author._id.equals(currentUser._id)) { %>
 				<form

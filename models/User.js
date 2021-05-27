@@ -11,6 +11,6 @@ const userSchema = new Schema({
 	},
 });
 
-userSchema.plugin(passportLocalMongoose); // adds username and password fields to the Schema and checks to make sure that username is unique, also will hash the saved  password in the database
+userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);
