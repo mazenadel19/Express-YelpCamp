@@ -34,6 +34,9 @@ body {
 	color: #333;
 	text-shadow: none;
 }
+.lead {
+	margin-bottom: 1em;
+}
 
 @media screen and (max-width: 567px) {
 	.lead {
@@ -47,8 +50,10 @@ body {
 @media screen and (max-width: 420px) {
 	.lead {
 		font-size: 0.75rem;
+		margin: 0 -60px;
+		margin-bottom: 1em;
 	}
 	#viewCamps {
-		font-size: 0.75rem;
+		font-size: 0.55rem;
 	}
 }
