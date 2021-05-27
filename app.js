@@ -30,10 +30,9 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
-
+const DB_URL = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
 mongoose
-	.connect(dbUrl, {
+	.connect(DB_URL, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,
@@ -107,7 +106,7 @@ const secret = process.env.SECRET || 'thisshouldbeabettersecret';
 
 const store = new MongoStore({
 	secret,
-	mongoUrl: dbUrl,
+	mongoUrl: DB_URL,
 	touchAfter: 24 * 60 * 60,
 });
 

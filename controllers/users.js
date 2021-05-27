@@ -18,6 +18,7 @@ module.exports.register = async (req, res, next) => {
 			req.flash('success', 'Welcome To YelpCamp');
 			return res.redirect('/campgrounds');
 		});
+		console.log(registeredUser,'yes take that _id');
 	} catch (e) {
 		if (e.message.split(' ')[0] === 'E11000') {
 			e.message = 'A User already exist with this email';
