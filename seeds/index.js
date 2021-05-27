@@ -4,7 +4,9 @@ const Campground = require('../models/Campground');
 const cities = require('./cities');
 const { descriptors, places } = require('./seedHelper');
 
-const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/yelp-camp';
+// atlas seeds using the url instead of dbUrl since process.env.DB_URL is undefined on my local machine
+// console.log(dbUrl);
 
 mongoose
 	.connect(dbUrl, {
