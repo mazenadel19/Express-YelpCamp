@@ -12,14 +12,14 @@ fullstack app with cluster map, image upload, full authentication and authorizat
 4. cd YelpCamp
 5. `npm i`
 
-#### NB: in order to use yelpcamp in your local machine you will need `.env` file that look like this
+##### NB: in order to use yelpcamp in your local machine you will need `.env` file that look like this
 
 ```
 MAPBOX_TOKEN=*your_map_token_here*
 SECRET=*some_gibberish_here*
-CLOUDINARY_CLOUD_NAME=*cloud_name_here_*
+CLOUDINARY_CLOUD_NAME=*cloud_name_here*
 CLOUDINARY_KEY=*API_key_here*
-CLOUDINARY_SECRET=*API_secret_here_*
+CLOUDINARY_SECRET=*API_secret_here*
 ```
 
 you can get a mapbox token from [here](https://account.mapbox.com/access-tokens/)
