@@ -4,10 +4,10 @@ const Campground = require('../models/Campground');
 const cities = require('./cities');
 const { descriptors, places } = require('./seedHelper');
 
-const db = mongoose.connection;
+const dbUrl = process.env.DB_URL;
 
 mongoose
-	.connect('mongodb://localhost:27017/yelp-camp', {
+	.connect(dbUrl, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useUnifiedTopology: true,
@@ -33,7 +33,8 @@ const seedDB = async () => {
 
 		const camp = new Campground({
 			campNo: `#${i}`,
-			author: '609cb8ba60aa6df217ad82a4',
+			// author: '609cb8ba60aa6df217ad82a4', // local
+			author: '60ae8cd334192b7565a69fef', // atlas
 			images: [
 				{
 					url: 'https://res.cloudinary.com/skywa1ker/image/upload/w_570/v1621939821/YelpCamp/wk4ybn0w0vvqnyn72qrb.jpg',
