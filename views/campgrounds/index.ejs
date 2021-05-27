@@ -62,6 +62,7 @@
 							>
 								<p
 									class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold card-text-shadow"
+									id="camp-title"
 								>
 									<%= campground.title %>
 								</p>
@@ -83,32 +84,27 @@
 										justify-content-start
 										align-items-center
 									"
+									id="user"
 								>
 									<img
 										src="/icons/user.svg"
-										width="32"
-										height="32"
+										id="icon1"
 										class="rounded-circle border border-white bg-light"
 									/>
 									<span class="ms-2 card-text-shadow fw-bold">
 										<%=campground.author.username%>
 									</span>
 								</li>
-								<li class="ms-auto">
-									<ul class="d-flex">
-										<li class="d-flex align-items-center me-3">
-											<img
-												class="bi me-2"
-												width="20em"
-												height="25em"
-												src="/icons/pinpoint.svg"
-												alt=""
-											/>
-											<small class="card-text-shadow fw-bold">
-												<%= campground.location%>
-											</small>
-										</li>
-									</ul>
+								<li class="ms-auto d-flex align-items-center" id="location">
+									<img
+										class="bi me-2"
+										id="icon2"
+										src="/icons/pinpoint.svg"
+										alt=""
+									/>
+									<small class="card-text-shadow fw-bold">
+										<%= campground.location%>
+									</small>
 								</li>
 							</ul>
 						</div>

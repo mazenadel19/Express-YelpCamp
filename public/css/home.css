@@ -34,3 +34,21 @@ body {
 	color: #333;
 	text-shadow: none;
 }
+
+@media screen and (max-width: 567px) {
+	.lead {
+		font-size: 1rem;
+	}
+	#viewCamps {
+		font-size: 1rem;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.lead {
+		font-size: 0.75rem;
+	}
+	#viewCamps {
+		font-size: 0.75rem;
+	}
+}

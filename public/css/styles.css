@@ -33,3 +33,36 @@
 .card-title {
 	text-transform: capitalize;
 }
+#icon1 {
+	width: 32px;
+	height: 32px;
+}
+
+#icon2 {
+	width: 20px;
+	height: 25px;
+}
+
+@media screen and (max-width: 430px) {
+	#location {
+		font-size: calc(0.75rem + 0.8vw);
+		margin-right: -30px;
+	}
+	#user {
+		font-size: calc(0.75rem + 0.8vw);
+		margin-left: -30px;
+	}
+	#camp-title {
+		font-size: 24px;
+	}
+
+	#icon1 {
+		width: 26px;
+		height: 26px;
+	}
+
+	#icon2 {
+		width: 16px;
+		height: 20px;
+	}
+}
