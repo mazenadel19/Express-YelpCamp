@@ -2,7 +2,7 @@
 
 fullstack app with cluster map, image upload, full authentication and authorization and other security features
 
-## 📺 Watch Live [here](https://yelpcamp.up.railway.app/)
+## 📺 Watch Live [here](https://yelpcamp.up.railway.app/) or [here](https://yelpcamp-nl54.onrender.com/)
 
 ## 🚀 Getting Started with YelpCamp
 
