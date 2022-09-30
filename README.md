@@ -2,7 +2,7 @@
 
 fullstack app with cluster map, image upload, full authentication and authorization and other security features
 
-## 📺 Watch Live [here](https://protected-dawn-09422.herokuapp.com/)
+## 📺 Watch Live [here](https://yelpcamp.up.railway.app/)
 
 ## 🚀 Getting Started with YelpCamp
 
