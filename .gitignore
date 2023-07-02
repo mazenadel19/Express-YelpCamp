@@ -2,3 +2,4 @@ node_modules
 .vscode
 users.txt
 .env
+pnpm-lock.yaml
