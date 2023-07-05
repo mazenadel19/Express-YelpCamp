@@ -19,6 +19,7 @@ body {
 	border-bottom: 0.25rem solid transparent;
 }
 
+.nav-link:focus,
 .nav-link:hover {
 	color: rgba(255, 255, 255, 0.5);
 	border-bottom-color: rgba(255, 255, 255, 0.5);
