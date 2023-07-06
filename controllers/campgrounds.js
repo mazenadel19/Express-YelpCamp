@@ -7,9 +7,29 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 const { cloudinary } = require('../cloudinary/index');
 
 module.exports.index = async (req, res) => {
-	const campgrounds = await Campground.find({}).populate('author');
-	res.render('campgrounds/index', { campgrounds });
+  const activePage = req?.query?.page ? parseInt(req.query.page) : 1;
+  const resultPerPage = 20;
+  const totalCamps = await Campground.countDocuments({});
+  const totalPages = totalCamps / resultPerPage;
+  const beginning = activePage === 1 ? 1 : resultPerPage * (activePage - 1) + 1
+  const end = activePage === totalPages ? totalCamps : beginning + resultPerPage - 1;
+
+	const campgrounds = await Campground.find({})
+    .populate("author")
+    .skip((activePage - 1) * resultPerPage)
+		.limit(resultPerPage);
+	res.render("campgrounds/index", {
+    campgrounds,
+    activePage,
+    totalPages,
+    results_per_page: resultPerPage,
+    total_results: totalCamps,
+    beginning,
+    end,
+  });
+
 };
+
 
 module.exports.renderNewForm = (req, res) => {
 	res.render('campgrounds/new');
