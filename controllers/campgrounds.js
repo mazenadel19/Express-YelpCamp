@@ -10,7 +10,7 @@ module.exports.index = async (req, res) => {
   const activePage = req?.query?.page ? parseInt(req.query.page) : 1;
   const resultPerPage = 20;
   const totalCamps = await Campground.countDocuments({});
-  const totalPages = totalCamps / resultPerPage;
+  const totalPages = Math.ceil(totalCamps / resultPerPage);
   const beginning = activePage === 1 ? 1 : resultPerPage * (activePage - 1) + 1
   const end = activePage === totalPages ? totalCamps : beginning + resultPerPage - 1;
 
